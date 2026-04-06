@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatController {
 
     @GetMapping("/chat")
-    public ChatResponse chat(@RequestParam(defaultValue = "hello") String message) {
+    public ChatResponse chat(@RequestParam(defaultValue = "he2llo") String message) {
         return createResponse(message);
     }
 
     @GetMapping("/test")
     public String test() {
-        return "v31";
+        return "v32";
     }
 
     @PostMapping("/chat")
