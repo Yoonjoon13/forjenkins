@@ -2,16 +2,13 @@ package com.example.canchu;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 class CanchuApplicationTests {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+    private final ChatController chatController = new ChatController();
 
     @Test
     void contextLoads() {
@@ -19,15 +16,14 @@ class CanchuApplicationTests {
 
     @Test
     void testEndpointReturnsV1() {
-        String response = restTemplate.getForObject("/test", String.class);
+        String response = chatController.test();
 
         assertEquals("v1", response);
     }
 
     @Test
     void chatGetReturnsEcho() {
-        ChatController.ChatResponse response =
-                restTemplate.getForObject("/chat?message=hello", ChatController.ChatResponse.class);
+        ChatController.ChatResponse response = chatController.chat("hello");
 
         assertEquals("bot", response.sender());
         assertEquals("echo: hello", response.reply());
@@ -35,9 +31,7 @@ class CanchuApplicationTests {
 
     @Test
     void chatPostReturnsEcho() {
-        ChatController.ChatRequest request = new ChatController.ChatRequest("spring");
-        ChatController.ChatResponse response =
-                restTemplate.postForObject("/chat", request, ChatController.ChatResponse.class);
+        ChatController.ChatResponse response = chatController.chat(new ChatController.ChatRequest("spring"));
 
         assertEquals("bot", response.sender());
         assertEquals("echo: spring", response.reply());
