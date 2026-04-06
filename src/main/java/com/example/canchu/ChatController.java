@@ -21,7 +21,7 @@ public class ChatController {
         String message = request == null || request.message() == null || request.message().isBlank()
                 ? "hello"
                 : request.message();
-        String emr = "testr";
+        String emr = "te1str";
         return createResponse(message);
     }
 
