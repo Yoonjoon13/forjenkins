@@ -16,7 +16,7 @@ public class ChatController {
 
     @GetMapping("/test")
     public String test() {
-        return "v3";
+        return "v31";
     }
 
     @PostMapping("/chat")
